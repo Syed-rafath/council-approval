@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Review · PhotoReview{% endblock %}
+{% block body %}
+<h1>PhotoReview</h1>
+<p class="muted">Hi <strong style="color:#f4f4f4">{{ friend.name }}</strong>! Keep or delete each photo.</p>
+
+{% if photo %}
+<p class="review-progress">{{ remaining }} photo(s) left to review</p>
+
+<img
+  class="review-photo"
+  src="{{ url_for('thumbnail', filename=photo.thumb_filename) }}"
+  alt="photo"
+/>
+
+<form class="vote-form" action="{{ url_for('cast_vote', token=friend.token) }}" method="post">
+  <input type="hidden" name="photo_id" value="{{ photo.id }}" />
+  <div class="vote-buttons">
+    <button class="btn-keep" type="submit" name="vote" value="keep">✓ Keep</button>
+    <button class="btn-delete" type="submit" name="vote" value="delete">✗ Delete</button>
+  </div>
+</form>
+
+{% else %}
+<div class="done-box">
+  <p>🎉 All done!</p>
+  <p class="muted">Thanks for helping review the photos.</p>
+</div>
+{% endif %}
+
+{% endblock %}

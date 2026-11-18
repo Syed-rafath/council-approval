@@ -7,22 +7,27 @@ clarity, small steps, and working code over cleverness.
 ## Current phase
 
 <!-- Update this line every session -->
-Phase 1 — Upload + thumbnail + grid. All development on Windows; Ubuntu/Cloudflare deploy comes later.
+Phase 3 — Threshold logic + file moves + results page. Developing on Windows.
 
 ## What works
 
 - Flask app boots on Windows: `venv\Scripts\python.exe app.py` → http://127.0.0.1:5000
 - Upload form + thumbnail generation (Pillow) + batch grid view
-- SQLite DB with `batches` and `photos` tables
-- Mobile-first dark-theme CSS
+- SQLite DB with `batches`, `photos`, `friends`, and `votes` tables
+- Owner adds friends → unique review URLs
+- Friend votes Keep/Delete on each photo one at a time
+- Results page `/batch/<id>/results` — vote tallies per photo with status badges
+- Apply button runs threshold logic: strict majority delete → `To_Delete/`, otherwise → `Kept/`
+- Quorum configurable via `QUORUM` in `config.py` (default: ceil(friends/2))
+- Original files moved with `shutil.move()` — never deleted directly
 
 ## What's next
 
-- Smoke-test upload flow end-to-end on Windows (upload real photos, verify thumbs appear in grid)
-- Commit current Phase 1 code
-- Tag `p1-done` once upload → thumbnail → grid works reliably in browser on this machine
-- Phase 2: per-friend tokens + vote UI + `friends`/`votes` tables
-- Ubuntu + Cloudflare Tunnel deployment comes after Phase 3 is solid
+- Smoke-test Phase 3: upload photos, vote via friend link, hit Apply, verify files moved
+- Commit Phase 3 code
+- Tag `p3-done` once results + file moves work end-to-end
+- Phase 4: polish — batch summary, richer UI improvements
+- Deployment: Ubuntu Server + Gunicorn + Nginx + Cloudflare Tunnel (after Phase 3 solid)
 
 ## What does NOT work / known issues
 

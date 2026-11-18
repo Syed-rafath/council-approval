@@ -35,4 +35,29 @@
 {% else %}
 <p class="muted">No batches yet.</p>
 {% endif %}
+
+<hr class="section-divider" />
+<h2>Friends</h2>
+<p class="muted">Add a friend to get a shareable review link.</p>
+
+<form action="{{ url_for('add_friend') }}" method="post">
+  <label for="fname">Friend's name</label>
+  <input id="fname" name="name" type="text" autocomplete="off" placeholder="e.g. Alice" required />
+  <button type="submit">Add friend</button>
+</form>
+
+{% if friends %}
+<ul class="friend-list">
+  {% for friend in friends %}
+  <li>
+    <span class="friend-name">{{ friend.name }}</span>
+    <a class="token-url" href="{{ url_for('review', token=friend.token, _external=True) }}">
+      {{ url_for('review', token=friend.token, _external=True) }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="muted">No friends added yet.</p>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Results · {{ batch.label or ("Batch " ~ batch.id) }} · PhotoReview{% endblock %}
+{% block body %}
+<h1><a href="{{ url_for('index') }}">PhotoReview</a></h1>
+<p>{{ batch.label or ("Batch " ~ batch.id) }} · Results</p>
+<p class="muted"><a href="{{ url_for('batch_view', batch_id=batch.id) }}" style="color:inherit">← grid view</a></p>
+
+{% set pending_count = photos | selectattr('status', 'eq', 'pending') | list | length %}
+{% set kept_count    = photos | selectattr('status', 'eq', 'kept')    | list | length %}
+{% set delete_count  = photos | selectattr('status', 'eq', 'delete')  | list | length %}
+
+<div class="result-summary">
+  <span class="badge badge-pending">{{ pending_count }} pending</span>
+  <span class="badge badge-kept">{{ kept_count }} kept</span>
+  <span class="badge badge-delete">{{ delete_count }} to delete</span>
+  <span class="muted" style="font-size:0.8rem"> · quorum: {{ quorum }} of {{ friends_count }} friend(s)</span>
+</div>
+
+{% if pending_count > 0 %}
+<form action="{{ url_for('batch_apply', batch_id=batch.id) }}" method="post" style="margin-bottom:1.25rem">
+  <button type="submit">⚡ Apply decisions</button>
+</form>
+{% else %}
+<p class="muted" style="margin-bottom:1.25rem">All photos decided. Run apply again to pick up any late votes.</p>
+<form action="{{ url_for('batch_apply', batch_id=batch.id) }}" method="post" style="margin-bottom:1.25rem">
+  <button type="submit" style="background:#333;color:#aaa">Re-apply</button>
+</form>
+{% endif %}
+
+<div class="result-grid">
+  {% for photo in photos %}
+  <div class="photo-card status-{{ photo.status }}">
+    <img
+      src="{{ url_for('thumbnail', filename=photo.thumb_filename) }}"
+      alt="photo {{ photo.id }}"
+      loading="lazy"
+    />
+    <div class="card-overlay">
+      <span class="vote-keep">✓ {{ photo.keep_count }}</span>
+      <span class="vote-del">✗ {{ photo.delete_count }}</span>
+    </div>
+    <div class="status-badge badge-{{ photo.status }}">{{ photo.status }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
