@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+votes.db
+uploads/
+thumbnails/
+To_Delete/
+Kept/
+logs/
+.env
+.DS_Store
