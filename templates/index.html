@@ -1,45 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PhotoReview</title>
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: system-ui, sans-serif;
-        background: #111;
-        color: #f4f4f4;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1.5rem;
-      }
-      main {
-        width: 100%;
-        max-width: 22rem;
-        text-align: center;
-      }
-      h1 {
-        font-size: 1.75rem;
-        margin: 0 0 0.5rem;
-      }
-      p {
-        margin: 0;
-        font-size: 1.05rem;
-        line-height: 1.4;
-        color: #cfcfcf;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>PhotoReview</h1>
-      <p>hello — Flask is running on this machine.</p>
-    </main>
-  </body>
-</html>
+{% extends "base.html" %}
+{% block title %}PhotoReview{% endblock %}
+{% block body %}
+<h1>PhotoReview</h1>
+<p class="muted">Upload a batch. The grid shows thumbnails only.</p>
+
+<form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+  <label for="label">Batch label (optional)</label>
+  <input id="label" name="label" type="text" autocomplete="off" />
+
+  <label for="photos">Photos</label>
+  <input
+    id="photos"
+    name="photos"
+    type="file"
+    accept=".jpg,.jpeg,.png,.webp,.gif,image/jpeg,image/png,image/webp,image/gif"
+    multiple
+    required
+  />
+
+  <button type="submit">Upload</button>
+</form>
+
+{% if batches %}
+<ul class="batch-list">
+  {% for batch in batches %}
+  <li>
+    <a href="{{ url_for('batch_view', batch_id=batch.id) }}">
+      {{ batch.label or ("Batch " ~ batch.id) }}
+      <span class="muted"> · {{ batch.photo_count }} photo(s) · {{ batch.created_at }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="muted">No batches yet.</p>
+{% endif %}
+{% endblock %}

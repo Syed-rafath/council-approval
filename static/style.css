@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  background: #111;
+  color: #f4f4f4;
+  padding: 1rem;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 0 0 0.75rem;
+}
+
+h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.flash {
+  background: #2a2a2a;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 0 0 1rem;
+  color: #ddd;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-size: 0.95rem;
+  color: #cfcfcf;
+}
+
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  font-size: 1rem;
+}
+
+input[type="text"] {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #333;
+  border-radius: 0.4rem;
+  background: #1a1a1a;
+  color: #f4f4f4;
+}
+
+button {
+  min-height: 2.75rem;
+  font-size: 1rem;
+  border: 0;
+  border-radius: 0.4rem;
+  background: #eee;
+  color: #111;
+  cursor: pointer;
+}
+
+.batch-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.batch-list li {
+  margin: 0 0 0.5rem;
+}
+
+.batch-list a {
+  display: block;
+  padding: 0.85rem 1rem;
+  background: #1c1c1c;
+  border-radius: 0.5rem;
+  color: #f4f4f4;
+  text-decoration: none;
+}
+
+.muted {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.35rem;
+  background: #222;
+}
+
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

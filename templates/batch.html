@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ batch.label or ("Batch " ~ batch.id) }} · PhotoReview{% endblock %}
+{% block body %}
+<h1><a href="{{ url_for('index') }}">PhotoReview</a></h1>
+<p>{{ batch.label or ("Batch " ~ batch.id) }} · {{ photos|length }} photo(s)</p>
+<p class="muted"><a href="{{ url_for('index') }}" style="color: inherit">← all batches</a></p>
+
+<div class="grid">
+  {% for photo in photos %}
+  <img
+    src="{{ url_for('thumbnail', filename=photo.thumb_filename) }}"
+    alt="photo {{ photo.id }}"
+    loading="lazy"
+  />
+  {% endfor %}
+</div>
+{% endblock %}

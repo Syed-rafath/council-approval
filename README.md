@@ -107,10 +107,11 @@ A photo moves to `To_Delete/` if:
 Kept if majority `keep`. Otherwise stays `pending` (manual review).
 Thresholds live in `config.py` so they can be tuned without code changes.
 
-## Local development (Windows first)
+## Local development (Windows — primary dev environment)
 
-The app is being built on a Windows machine. Ubuntu + Cloudflare Tunnel come later.
-Do not treat a local hello-world as `p0-done`; that tag is for a public phone URL.
+The app is being built and tested entirely on Windows first. Ubuntu + Cloudflare Tunnel
+come later, once the app is feature-complete. Phase milestones are tagged when the feature
+works end-to-end in a local browser — no Ubuntu/public URL required to advance phases.
 
 1. Install Python 3 (3.10+ is fine on Windows).
 2. In the repo root:
@@ -136,11 +137,12 @@ Do not treat a local hello-world as `p0-done`; that tag is for a public phone UR
 
 ## Build order (phases)
 
-- **Phase 0** — Hello-world Flask. Local Windows first; Ubuntu + Cloudflare Tunnel later for a public phone URL.
-- **Phase 1** — Upload + thumbnail + grid display.
+- **Phase 0** — Hello-world Flask on Windows. ✅ Done.
+- **Phase 1** — Upload + thumbnail + grid display. Working locally = p1-done.
 - **Phase 2** — Per-friend tokens + vote UI + SQLite persistence.
 - **Phase 3** — Threshold logic + `shutil.move()` to `To_Delete/` + results page.
 - **Phase 4** — Polish: batch-best-photo, richer UI, React if needed.
+- **Deploy** — Ubuntu Server + Gunicorn + Nginx + Cloudflare Tunnel (after Phase 3).
 
 **Do not start Phase N+1 until Phase N works end-to-end from a phone.**
 

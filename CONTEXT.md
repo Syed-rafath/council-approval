@@ -7,26 +7,29 @@ clarity, small steps, and working code over cleverness.
 ## Current phase
 
 <!-- Update this line every session -->
-Phase 0 — hello-world Flask. Developing on Windows first; Ubuntu/Cloudflare later.
+Phase 1 — Upload + thumbnail + grid. All development on Windows; Ubuntu/Cloudflare deploy comes later.
 
 ## What works
 
-- Flask hello-world on Windows: `python app.py` then http://127.0.0.1:5000
-- `venv/` + `requirements.txt` (Flask only)
-- Mobile-first hello page in `templates/index.html`
+- Flask app boots on Windows: `venv\Scripts\python.exe app.py` → http://127.0.0.1:5000
+- Upload form + thumbnail generation (Pillow) + batch grid view
+- SQLite DB with `batches` and `photos` tables
+- Mobile-first dark-theme CSS
 
 ## What's next
 
-- Confirm hello page in a browser on this Windows machine
-- Stay on Phase 0 until that is reliable (do not start upload/thumbs yet)
-- Later: Ubuntu Server, Nginx, Gunicorn, Cloudflare Tunnel, public phone URL
-- Tag `p0-done` only after the public URL works from a phone
+- Smoke-test upload flow end-to-end on Windows (upload real photos, verify thumbs appear in grid)
+- Commit current Phase 1 code
+- Tag `p1-done` once upload → thumbnail → grid works reliably in browser on this machine
+- Phase 2: per-friend tokens + vote UI + `friends`/`votes` tables
+- Ubuntu + Cloudflare Tunnel deployment comes after Phase 3 is solid
 
 ## What does NOT work / known issues
 
 - Windows Python is 3.10.11 (server target is 3.11+). Fine for local Flask.
-- App binds to 127.0.0.1 only — other devices on the LAN cannot reach it yet.
-- No Ubuntu server, Nginx, or Cloudflare Tunnel yet.
+- App binds to 127.0.0.1 only — LAN access not needed until Ubuntu deploy.
+- `friends` and `votes` DB tables not yet added (Phase 2).
+- Ubuntu server, Nginx, Gunicorn, Cloudflare Tunnel: deferred until app is feature-complete.
 
 ## Rules for agents
 
